@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+:root {
+  font-family: 'Hind Siliguri', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body, h1, h2, h3, h4, h5, h6, input, button, select, textarea, p, span, a, label {
+  font-family: 'Hind Siliguri', system-ui, -apple-system, BlinkMacSystemFont, sans-serif !important;
+}
+
+/* ---------------------------------------------------------------------------
+   Phone UI (src/mobile/). Everything below is only used by those components.
+   --------------------------------------------------------------------------- */
+
+/* swipe rows without a visible scrollbar */
+.sbs-no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.sbs-no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* no grey flash and no 300ms wait on tap; the search box keeps only our own clear button */
+.sbs-m button,
+.sbs-m a,
+.sbs-m input,
+.sbs-m textarea,
+.sbs-m label {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+/* Pinch-zoom stays available on normal page content, but the places a finger lands while doing
+   something else (swiping the banner, the top bar, bottom bar, menu, cart and order screens) ignore it,
+   so the page no longer zooms or shrinks by accident. */
+.sbs-m header,
+.sbs-m header *,
+.sbs-m nav,
+.sbs-m nav *,
+.sbs-m [role='dialog'],
+.sbs-m [role='dialog'] *,
+.sbs-m [aria-roledescription='carousel'],
+.sbs-m [aria-roledescription='carousel'] * {
+  touch-action: pan-x pan-y;
+}
+/* nothing is allowed to push the page sideways, which is what makes it wobble and zoom out */
+.sbs-m {
+  overflow-x: clip;
+}
+.sbs-m input[type='search']::-webkit-search-cancel-button,
+.sbs-m input[type='search']::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@keyframes sbs-sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+@keyframes sbs-drawer-in {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+@keyframes sbs-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes sbs-screen-up {
+  from { transform: translateY(24px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+.sbs-sheet-up { animation: sbs-sheet-up 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.sbs-drawer-in { animation: sbs-drawer-in 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.sbs-fade-in { animation: sbs-fade-in 0.2s ease-out both; }
+.sbs-screen-up { animation: sbs-screen-up 0.25s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  .sbs-sheet-up, .sbs-drawer-in, .sbs-fade-in, .sbs-screen-up { animation: none; }
+}
+
+/* Older pages shown inside the phone UI (Terms): lift their smallest text sizes.
+   Written unlayered on purpose, so it wins over Tailwind's own utilities. */
+.sbs-legacy-bump .text-xs { font-size: 0.9375rem; line-height: 1.6; }
+.sbs-legacy-bump .text-sm { font-size: 1rem; line-height: 1.65; }
+.sbs-legacy-bump .text-base { font-size: 1.0625rem; }
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-invoice, #printable-invoice * {
+    visibility: visible;
+  }
+  #printable-invoice {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px;
+    background: white;
+  }
+}

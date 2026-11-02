@@ -1,0 +1,2 @@
+# SPA fallback so opening the admin page directly (or refreshing it) loads the app
+/dihanadmin /index.html 200
